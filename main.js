@@ -11,7 +11,7 @@ let board = [];
 let solution = '';
 let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
-const printBoard = () =>  {git s
+const printBoard = () =>  {
   for (let i = 0; i < board.length; i++) {
     console.log(board[i]);
   }
@@ -53,7 +53,7 @@ const generateHint = (guess) =>  {
       }
     } 
     // console.log('You have ' + correctLetterLocations + 'letters in the right place, and ' + correctLetters + ' correct letters in the wrong place')
-
+    board.push(`${correctLetterLocations} in the right place and ${correctLetters} correct letters`)
     return correctLetterLocations + '-' + correctLetters;
 
   
@@ -61,20 +61,25 @@ const generateHint = (guess) =>  {
 
 const mastermind = (guess) => {
   solution = 'abcd'; // Comment this out to generate a random solution
-  if(solution.localeCompare(guess)){
+  if(solution === guess){
+    console.log('You guessed it!')
     return 'You guessed it!';
   }
   // Define a variable called hint that collects the returned value of a generateHint(guess).
   //solution = generateSolution(); // uncomment for random solution
   let hint = generateHint(guess)
-
-  board.push('${correctLetterLocations} in the right place and ${correctLetters} correct letters')
+console.log(hint, 'This is a hint')
+  
+  console.log(board, 'This is the board')
 }
 
 
 const getPrompt = () =>  {
   rl.question('guess: ', (guess) => {
     mastermind(guess);
+    if (solution === guess){
+      return
+    }
     printBoard();
     getPrompt();
   });
